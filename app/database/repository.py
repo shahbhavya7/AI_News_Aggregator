@@ -62,10 +62,16 @@ class Repository:
         return article
     
     def bulk_create_youtube_videos(self, videos: List[dict]) -> int:
+        if not videos:
+            return 0
+        
+        video_ids = [v["video_id"] for v in videos]
+        existing_rows = self.session.query(YouTubeVideo.video_id).filter(YouTubeVideo.video_id.in_(video_ids)).all()
+        existing_ids = {row[0] for row in existing_rows}
+        
         new_videos = []
         for v in videos:
-            existing = self.session.query(YouTubeVideo).filter_by(video_id=v["video_id"]).first()
-            if not existing:
+            if v["video_id"] not in existing_ids:
                 new_videos.append(YouTubeVideo(
                     video_id=v["video_id"],
                     title=v["title"],
@@ -81,10 +87,16 @@ class Repository:
         return len(new_videos)
     
     def bulk_create_openai_articles(self, articles: List[dict]) -> int:
+        if not articles:
+            return 0
+
+        guids = [a["guid"] for a in articles]
+        existing_rows = self.session.query(OpenAIArticle.guid).filter(OpenAIArticle.guid.in_(guids)).all()
+        existing_guids = {row[0] for row in existing_rows}
+
         new_articles = []
         for a in articles:
-            existing = self.session.query(OpenAIArticle).filter_by(guid=a["guid"]).first()
-            if not existing:
+            if a["guid"] not in existing_guids:
                 new_articles.append(OpenAIArticle(
                     guid=a["guid"],
                     title=a["title"],
@@ -99,10 +111,16 @@ class Repository:
         return len(new_articles)
     
     def bulk_create_anthropic_articles(self, articles: List[dict]) -> int:
+        if not articles:
+            return 0
+
+        guids = [a["guid"] for a in articles]
+        existing_rows = self.session.query(AnthropicArticle.guid).filter(AnthropicArticle.guid.in_(guids)).all()
+        existing_guids = {row[0] for row in existing_rows}
+
         new_articles = []
         for a in articles:
-            existing = self.session.query(AnthropicArticle).filter_by(guid=a["guid"]).first()
-            if not existing:
+            if a["guid"] not in existing_guids:
                 new_articles.append(AnthropicArticle(
                     guid=a["guid"],
                     title=a["title"],

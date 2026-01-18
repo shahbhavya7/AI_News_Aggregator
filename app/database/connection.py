@@ -6,6 +6,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_database_url() -> str:
+    # Check if a full connection string is provided (common for cloud DBs like Neon)
+    database_url = os.getenv("DATABASE_URL")
+    if database_url:
+        return database_url
+
     user = os.getenv("POSTGRES_USER", "postgres")
     password = os.getenv("POSTGRES_PASSWORD", "postgres")
     host = os.getenv("POSTGRES_HOST", "localhost")

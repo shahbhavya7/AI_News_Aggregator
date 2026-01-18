@@ -10,7 +10,7 @@ def main(hours: int = 24):
 
     return results
 
-if __name__ == " main ":
-    import sys
-    hours = int(sys. argv[1]) if len(sys.argv) > 1 else 24
-    main(hours=hours)
+if __name__ == "__main__":
+    # import sys
+    # hours = int(sys. argv[1]) if len(sys.argv) > 1 else 24
+    main(hours=150)

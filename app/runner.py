@@ -7,11 +7,14 @@ from .database.repository import Repository
 
 
 def run_scrapers(hours: int = 24) -> dict:
+    print(f"Starting scrapers (fetching last {hours} hours)...")
+    
     youtube_scraper = YouTubeScraper()
     openai_scraper = OpenAIScraper()
     anthropic_scraper = AnthropicScraper()
     repo = Repository()
     
+    print("Scraping YouTube channels...")
     youtube_videos = []
     video_dicts = []
     for channel_id in YOUTUBE_CHANNELS:
@@ -29,14 +32,22 @@ def run_scrapers(hours: int = 24) -> dict:
             }
             for v in videos
         ])
+    print(f"Found {len(youtube_videos)} videos.")
     
+    print("Scraping OpenAI blog...")
     openai_articles = openai_scraper.get_articles(hours=hours)
+    print(f"Found {len(openai_articles)} OpenAI articles.")
+
+    print("Scraping Anthropic blog...")
     anthropic_articles = anthropic_scraper.get_articles(hours=hours)
-    
+    print(f"Found {len(anthropic_articles)} Anthropic articles.")
+
     if video_dicts:
+        print(f"Saving {len(video_dicts)} videos to database...")
         repo.bulk_create_youtube_videos(video_dicts)
     
     if openai_articles:
+        print(f"Saving {len(openai_articles)} OpenAI articles to database...")
         article_dicts = [
             {
                 "guid": a.guid,
@@ -51,6 +62,7 @@ def run_scrapers(hours: int = 24) -> dict:
         repo.bulk_create_openai_articles(article_dicts)
     
     if anthropic_articles:
+        print(f"Saving {len(anthropic_articles)} Anthropic articles to database...")
         article_dicts = [
             {
                 "guid": a.guid,

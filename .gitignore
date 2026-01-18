@@ -5,9 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
-
+.env
 # Virtual environments
 .venv
 .vscode/
 .github/
+
 AI_News_Aggregator.code-workspace
