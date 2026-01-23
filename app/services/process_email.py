@@ -1,4 +1,14 @@
+import sys
+import os
 import logging
+# Explicitly add your project root to Python's search path
+project_root = r"c:\Users\bhavy\OneDrive\Desktop\Languages\Gen AI Projects\AI_News_Aggregator"
+
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+# Confirm it's added
+print(f"Project root added: {project_root}")
 from dotenv import load_dotenv
 
 load_dotenv()
