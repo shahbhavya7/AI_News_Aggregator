@@ -11,6 +11,10 @@ def get_database_url() -> str:
     if database_url:
         return database_url
 
+    # Check for SQLite mode
+    if os.getenv("USE_SQLITE", "false").lower() == "true":
+        return "sqlite:///ai_news.db"
+
     user = os.getenv("POSTGRES_USER", "postgres")
     password = os.getenv("POSTGRES_PASSWORD", "postgres")
     host = os.getenv("POSTGRES_HOST", "localhost")
