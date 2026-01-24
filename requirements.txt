@@ -1,7 +1,7 @@
 beautifulsoup4>=4.14.2
 docling>=2.4.0
 feedparser>=6.0.12
-google-genai>=0.3.0
+google-generativeai>=0.3.0
 html-to-markdown>=2.7.1
 markdown>=3.7.0
 markdownify>=0.11.6
