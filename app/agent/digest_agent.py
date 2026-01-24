@@ -1,11 +1,13 @@
 import os
-import json
+import logging
 from typing import Optional
-import google.generativeai as genai
+from google import genai
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from app.config import GEMINI_API_KEY, GEMINI_MODEL
 
 load_dotenv()
+logger = logging.getLogger(__name__)
 
 
 class DigestOutput(BaseModel):
@@ -26,36 +28,34 @@ Guidelines:
 
 class DigestAgent:
     def __init__(self):
-        # Configure the Gemini API
-        # Make sure you have GOOGLE_API_KEY in your .env file
-        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-        # Using gemini-1.5-flash as it is the current standard Flash model. 
-        # (gemini-2.5-flash does not exist yet)
-        self.model = genai.GenerativeModel('gemini-2.5-flash')
+        if not GEMINI_API_KEY:
+            logger.error("GEMINI_API_KEY not set")
+            raise ValueError("GEMINI_API_KEY not found")
+            
+        self.client = genai.Client(api_key=GEMINI_API_KEY)
+        self.model = GEMINI_MODEL
         self.system_prompt = PROMPT
 
     def generate_digest(self, title: str, content: str, article_type: str) -> Optional[DigestOutput]:
         try:
-            # Combine system prompt with user input as Gemini 1.5 usually takes them together comfortably
-            # or we can set system_instruction in initialization if preferred, but this works well.
-            full_prompt = f"""{self.system_prompt}
-
-TASK: Create a digest for this {article_type}.
+            user_prompt = f"""TASK: Create a digest for this {article_type}.
 
 Title: {title}
 Content: {content[:10000]}
 """
 
-            response = self.model.generate_content(
-                full_prompt,
-                generation_config=genai.GenerationConfig(
-                    response_mime_type="application/json",
-                    response_schema=DigestOutput
-                )
+            response = self.client.models.generate_content(
+                model=self.model,
+                contents=user_prompt,
+                config={
+                    'system_instruction': self.system_prompt,
+                    'response_mime_type': 'application/json',
+                    'response_schema': DigestOutput,
+                }
             )
             
-            return DigestOutput.model_validate_json(response.text)
+            return response.parsed
         except Exception as e:
-            print(f"Error generating digest: {e}")
+            logger.error(f"Error generating digest: {e}")
             return None
 
