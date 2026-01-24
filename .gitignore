@@ -9,6 +9,6 @@ wheels/
 # Virtual environments
 .venv
 .vscode/
-.github/
+
 
 AI_News_Aggregator.code-workspace

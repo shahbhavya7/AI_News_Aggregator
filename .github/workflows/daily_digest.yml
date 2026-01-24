@@ -1,0 +1,45 @@
+name: Daily AI News Digest
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # Runs at 8:00 AM UTC daily
+  workflow_dispatch: # Allows manual trigger from Actions tab
+
+jobs:
+  run-digest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # REQUIRED to save the database back to repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Initialize Database
+        env:
+          USE_SQLITE: "true"
+        run: |
+          python -m app.database.create_tables
+
+      - name: Run Daily Digest
+        env:
+          USE_SQLITE: "true"
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MY_EMAIL: ${{ secrets.MY_EMAIL }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+        run: python main.py
+
+      - name: Commit Database Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated DB Update"
+          file_pattern: "ai_news.db"
