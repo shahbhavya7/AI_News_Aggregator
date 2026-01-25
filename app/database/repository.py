@@ -171,18 +171,21 @@ class Repository:
             seen_ids.add(f"{d.article_type}:{d.article_id}")
         
         youtube_videos = self.session.query(YouTubeVideo).filter(
-            YouTubeVideo.transcript.isnot(None),
-            YouTubeVideo.transcript != "__UNAVAILABLE__"
+            YouTubeVideo.transcript.isnot(None)
         ).all()
         for video in youtube_videos:
             key = f"youtube:{video.video_id}"
             if key not in seen_ids:
+                content = video.transcript
+                if content == "__UNAVAILABLE__":
+                    content = f"Transcript unavailable. Video Description: {video.description}"
+                
                 articles.append({
                     "type": "youtube",
                     "id": video.video_id,
                     "title": video.title,
                     "url": video.url,
-                    "content": video.transcript or video.description or "",
+                    "content": content or video.description or "",
                     "published_at": video.published_at
                 })
         
