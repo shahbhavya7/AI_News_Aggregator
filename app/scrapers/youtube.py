@@ -24,8 +24,8 @@ class ChannelVideo(BaseModel):
 class YouTubeScraper:
     def __init__(self):
         proxy_config = None
-        proxy_username = os.getenv("PROXY_USERNAME")
-        proxy_password = os.getenv("PROXY_PASSWORD")
+        proxy_username = os.getenv("WEBSHARE_USERNAME")
+        proxy_password = os.getenv("WEBSHARE_PASSWORD")
         
         if proxy_username and proxy_password:
             proxy_config = WebshareProxyConfig(

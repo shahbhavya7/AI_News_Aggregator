@@ -37,6 +37,8 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           MY_EMAIL: ${{ secrets.MY_EMAIL }}
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          WEBSHARE_USERNAME: ${{ secrets.WEBSHARE_USERNAME }}
+          WEBSHARE_PASSWORD: ${{ secrets.WEBSHARE_PASSWORD }}
         run: python main.py
 
       - name: Commit Database Changes
