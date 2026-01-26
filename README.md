@@ -4,7 +4,7 @@
   
   [![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%20AI-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev)
   [![RAG Pipeline](https://img.shields.io/badge/Technology-AI%20Agents-00D9FF?style=for-the-badge&logo=databricks)](https://en.wikipedia.org/wiki/Intelligent_agent)
-  [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?style=for-the-badge&logo=postgresql)](https://www.postgresql.org)
+  [![Neon DB](https://img.shields.io/badge/Database-Neon%20DB-00E699?style=for-the-badge&logo=postgresql)](https://neon.tech)
   [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python)](https://www.python.org)
   
 
@@ -24,7 +24,7 @@
   
   | 📊 **Database Storage** | 🎯 **User Profiles** | ⚡ **Automated Pipeline** |
   |:-----------------------:|:--------------------:|:------------------------:|
-  | PostgreSQL persistence | Customizable interests | Scheduled daily runs |
+  | Neon DB (Serverless Postgres) | Customizable interests | Scheduled daily runs |
   | Article deduplication | Expertise-based filtering | End-to-end automation |
   
 </div>
@@ -35,7 +35,7 @@
 - **🔍 Multi-Source Scraping** - Aggregates content from YouTube, OpenAI Blog, and Anthropic News
 - **🎯 Personalized Curation** - Ranks articles based on your specific interests and expertise level
 - **📧 Beautiful Email Digests** - HTML-formatted emails with your top 10 most relevant articles
-- **💾 Smart Storage** - PostgreSQL database with deduplication and history tracking
+- **💾 Smart Storage** - Neon DB serverless Postgres with deduplication and history tracking
 - **⚡ Automated Pipeline** - Fully automated daily workflow from scraping to email delivery
 - **🧠 Gemini-Powered** - Leverages Google's Gemini 2.5 Flash for fast, accurate AI processing
 - **📺 Transcript Processing** - Extracts and analyzes YouTube video transcripts automatically
@@ -49,7 +49,7 @@
   
   ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
   ![Google AI](https://img.shields.io/badge/Gemini%20AI-4285F4?style=for-the-badge&logo=google&logoColor=white)
-  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+  ![Neon DB](https://img.shields.io/badge/Neon%20DB-00E699?style=for-the-badge&logo=postgresql&logoColor=white)
   ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
   ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=for-the-badge&logo=pydantic&logoColor=white)
   
@@ -58,7 +58,7 @@
 ### Core Technologies
 
 - **AI Model**: Google Gemini 2.5 Flash (Fast, structured output, cost-effective)
-- **Database**: PostgreSQL with SQLAlchemy ORM (SQLite option for local dev)
+- **Database**: Neon DB (Serverless Postgres) with SQLAlchemy ORM
 - **Data Validation**: Pydantic (Type-safe models and structured outputs)
 - **Web Scraping**: Feedparser, BeautifulSoup, Requests
 - **Content Processing**: Docling (Web to Markdown), YouTube Transcript API
@@ -74,7 +74,7 @@ graph TD
     A --> C[📰 OpenAI Blog]
     A --> D[🧠 Anthropic News]
     
-    B --> E[💾 PostgreSQL Database]
+    B --> E[💾 Neon DB Database]
     C --> E
     D --> E
     
@@ -192,8 +192,8 @@ python --version
 # pip package manager
 pip --version
 
-# PostgreSQL database (local or cloud)
-# Or use SQLite for local development
+# Neon DB account (free tier available)
+# Get started at https://neon.tech
 ```
 
 ### Installation
@@ -222,11 +222,8 @@ pip --version
    MY_EMAIL=your_email@gmail.com
    APP_PASSWORD=your_gmail_app_password
    
-   # Database configuration (PostgreSQL)
-   DATABASE_URL=postgresql://user:password@host:port/dbname
-   
-   # OR use SQLite for local development
-   USE_SQLITE=true
+   # Database configuration (Neon DB)
+   DATABASE_URL=postgresql://user:password@host.neon.tech:5432/dbname?sslmode=require
    
    # Optional: YouTube proxy (for transcript fetching)
    WEBSHARE_USERNAME=your_proxy_username
@@ -236,6 +233,7 @@ pip --version
    **Get your API keys:**
    - Gemini API: [Google AI Studio](https://ai.google.dev)
    - Gmail App Password: [Google Account Settings](https://myaccount.google.com/apppasswords)
+   - Neon DB Connection String: [Neon Console](https://console.neon.tech)
 
 **Set up the database**
    ```bash
@@ -299,7 +297,7 @@ Contributions are welcome to enhance the Global Digest!
 
 - **Local Processing**: Content scraping and processing happens locally
 - **API Communication**: Only summaries sent to Gemini API, not full articles
-- **Database Security**: Use strong passwords, SSL connections for cloud DBs
+- **Database Security**: Neon DB uses SSL by default, automated backups, and secure connections
 - **Email Security**: Gmail App Passwords prevent exposing main credentials
 - **Environment Variables**: Sensitive data stored securely in `.env` file
 - **No Data Sharing**: Your profile and preferences stay private
