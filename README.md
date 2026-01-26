@@ -41,94 +41,7 @@
 - **📺 Transcript Processing** - Extracts and analyzes YouTube video transcripts automatically
 - **📄 Markdown Extraction** - Converts web articles to clean markdown for better analysis
 
-## 🚀 Quick Start
 
-### Prerequisites
-
-```bash
-# Python 3.9 or higher
-python --version
-
-# pip package manager
-pip --version
-
-# PostgreSQL database (local or cloud)
-# Or use SQLite for local development
-```
-
-### Installation
-
-**Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/ai-news-aggregator.git
-   cd ai-news-aggregator
-   ```
-
-**Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-**Set up environment variables**
-   ```bash
-   # Create a .env file in the root directory
-   # Add your credentials:
-   
-   # Google Gemini API
-   GOOGLE_API_KEY=your_gemini_api_key_here
-   GEMINI_MODEL=gemini-2.5-flash
-   
-   # Email configuration (Gmail)
-   MY_EMAIL=your_email@gmail.com
-   APP_PASSWORD=your_gmail_app_password
-   
-   # Database configuration (PostgreSQL)
-   DATABASE_URL=postgresql://user:password@host:port/dbname
-   
-   # OR use SQLite for local development
-   USE_SQLITE=true
-   
-   # Optional: YouTube proxy (for transcript fetching)
-   WEBSHARE_USERNAME=your_proxy_username
-   WEBSHARE_PASSWORD=your_proxy_password
-   ```
-   
-   **Get your API keys:**
-   - Gemini API: [Google AI Studio](https://ai.google.dev)
-   - Gmail App Password: [Google Account Settings](https://myaccount.google.com/apppasswords)
-
-**Set up the database**
-   ```bash
-   # Create tables
-   python app/database/create_tables.py
-   
-   # Verify connection
-   python app/database/check_connection.py
-   ```
-
-**Configure your profile**
-   
-   Edit `app/profiles/user_profile.py` to customize your interests:
-   ```python
-   USER_PROFILE = {
-       "name": "Your Name",
-       "background": "Your background and expertise",
-       "interests": [
-           "Large Language Models",
-           "AI Safety",
-           # Add your interests...
-       ]
-   }
-   ```
-
-**Run the pipeline**
-   ```bash
-   # Run daily pipeline (last 24 hours, top 10 articles)
-   python main.py
-   
-   # Or customize hours and article count
-   python main.py 48 15  # Last 48 hours, top 15 articles
-   ```
 
 ## 🛠️ Tech Stack
 
@@ -227,86 +140,6 @@ graph TD
    - HTML email with responsive design
    - Includes read-more links to original content
 
-## 🎮 Key Components Breakdown
-
-### 🔍 Scrapers (`app/scrapers/`)
-
-**YouTube Scraper** (`youtube.py`)
-- Fetches videos from channel RSS feeds
-- Extracts video metadata (title, URL, published date)
-- Retrieves transcripts using YouTube Transcript API
-- Supports proxy configuration for reliability
-- Filters out YouTube Shorts
-
-**OpenAI Scraper** (`openai.py`)
-- Parses OpenAI blog RSS feed
-- Extracts article metadata and descriptions
-- Filters articles by time window
-
-**Anthropic Scraper** (`anthropic.py`)
-- Scrapes three RSS feeds: News, Research, Engineering
-- Converts article URLs to markdown using Docling
-- Preserves article structure and formatting
-
-### 🤖 AI Agents (`app/agent/`)
-
-**Digest Agent** (`digest_agent.py`)
-- Creates concise, informative summaries
-- Generates compelling titles
-- Focuses on actionable insights
-- Uses structured JSON output via Pydantic
-
-**Curator Agent** (`curator_agent.py`)
-- Ranks articles based on user profile
-- Assigns relevance scores (0.0-10.0)
-- Provides reasoning for each ranking
-- Considers technical depth, novelty, and alignment
-
-**Email Agent** (`email_agent.py`)
-- Generates personalized email introductions
-- Creates engaging previews of top articles
-- Formats content for email delivery
-- Includes date and user name
-
-### 💾 Database Layer (`app/database/`)
-
-**Models** (`models.py`)
-- `YouTubeVideo`: Video metadata and transcripts
-- `OpenAIArticle`: OpenAI blog articles
-- `AnthropicArticle`: Anthropic news with markdown
-- `Digest`: AI-generated summaries and titles
-
-**Repository** (`repository.py`)
-- CRUD operations for all models
-- Bulk insert methods for efficiency
-- Deduplication logic
-- Filtering and querying utilities
-
-### 🔄 Services (`app/services/`)
-
-**Process Anthropic** (`process_anthropic.py`)
-- Converts Anthropic articles to markdown
-- Handles failed conversions gracefully
-
-**Process YouTube** (`process_youtube.py`)
-- Fetches transcripts for videos
-- Marks unavailable transcripts
-
-**Process Digest** (`process_digest.py`)
-- Generates digests for all unprocessed articles
-- Implements rate limiting for API compliance
-- Tracks success/failure metrics
-
-**Process Email** (`process_email.py`)
-- Orchestrates curation and email generation
-- Formats HTML emails from markdown
-- Sends emails via SMTP
-
-**Email Service** (`email.py`)
-- SMTP email delivery via Gmail
-- Markdown to HTML conversion
-- Responsive email templates
-
 
 
 ## 📧 Email Digest Format
@@ -348,7 +181,94 @@ performance considerations.
 [... 8 more articles ...]
 ```
 
+## 🚀 Quick Start
 
+### Prerequisites
+
+```bash
+# Python 3.9 or higher
+python --version
+
+# pip package manager
+pip --version
+
+# PostgreSQL database (local or cloud)
+# Or use SQLite for local development
+```
+
+### Installation
+
+**Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/ai-news-aggregator.git
+   cd ai-news-aggregator
+   ```
+
+**Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+**Set up environment variables**
+   ```bash
+   # Create a .env file in the root directory
+   # Add your credentials:
+   
+   # Google Gemini API
+   GOOGLE_API_KEY=your_gemini_api_key_here
+   GEMINI_MODEL=gemini-2.5-flash
+   
+   # Email configuration (Gmail)
+   MY_EMAIL=your_email@gmail.com
+   APP_PASSWORD=your_gmail_app_password
+   
+   # Database configuration (PostgreSQL)
+   DATABASE_URL=postgresql://user:password@host:port/dbname
+   
+   # OR use SQLite for local development
+   USE_SQLITE=true
+   
+   # Optional: YouTube proxy (for transcript fetching)
+   WEBSHARE_USERNAME=your_proxy_username
+   WEBSHARE_PASSWORD=your_proxy_password
+   ```
+   
+   **Get your API keys:**
+   - Gemini API: [Google AI Studio](https://ai.google.dev)
+   - Gmail App Password: [Google Account Settings](https://myaccount.google.com/apppasswords)
+
+**Set up the database**
+   ```bash
+   # Create tables
+   python app/database/create_tables.py
+   
+   # Verify connection
+   python app/database/check_connection.py
+   ```
+
+**Configure your profile**
+   
+   Edit `app/profiles/user_profile.py` to customize your interests:
+   ```python
+   USER_PROFILE = {
+       "name": "Your Name",
+       "background": "Your background and expertise",
+       "interests": [
+           "Large Language Models",
+           "AI Safety",
+           # Add your interests...
+       ]
+   }
+   ```
+
+**Run the pipeline**
+   ```bash
+   # Run daily pipeline (last 24 hours, top 10 articles)
+   python main.py
+   
+   # Or customize hours and article count
+   python main.py 48 15  # Last 48 hours, top 15 articles
+   ```
 
 ## 🤝 Contributing
 
@@ -373,18 +293,7 @@ Contributions are welcome to enhance the Global Digest!
 
 5. **📬 Open a Pull Request**
 
-## 🎓 Educational Value
 
-This project demonstrates key concepts in:
-
-- **Web Scraping**: RSS feed parsing, content extraction, error handling
-- **AI Agents**: Multi-agent architecture, specialized tasks, orchestration
-- **LLM Integration**: Prompt engineering, structured outputs, rate limiting
-- **Database Design**: ORM patterns, deduplication, efficient queries
-- **Pipeline Automation**: ETL workflows, error recovery, logging
-- **Email Automation**: SMTP, HTML templating, markdown conversion
-- **API Integration**: External service integration, retry logic
-- **Data Modeling**: Pydantic schemas, type validation
 
 ## 🔒 Privacy & Security
 
