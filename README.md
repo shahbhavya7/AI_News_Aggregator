@@ -6,11 +6,10 @@
   [![RAG Pipeline](https://img.shields.io/badge/Technology-AI%20Agents-00D9FF?style=for-the-badge&logo=databricks)](https://en.wikipedia.org/wiki/Intelligent_agent)
   [![Neon DB](https://img.shields.io/badge/Database-Neon%20DB-00E699?style=for-the-badge&logo=postgresql)](https://neon.tech)
   [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python)](https://www.python.org)
-  
 
-  
-  *Your personalized AI news digest - scraped, curated, and delivered daily!*
-  
+
+_Your personalized AI news digest - scraped, curated, and delivered daily!_
+
 </div>
 
 ## 🌟 Features
@@ -40,8 +39,6 @@
 - **🧠 Gemini-Powered** - Leverages Google's Gemini 2.5 Flash for fast, accurate AI processing
 - **📺 Transcript Processing** - Extracts and analyzes YouTube video transcripts automatically
 - **📄 Markdown Extraction** - Converts web articles to clean markdown for better analysis
-
-
 
 ## 🛠️ Tech Stack
 
@@ -73,27 +70,27 @@ graph TD
     A[🔍 Scrapers] --> B[📺 YouTube Videos]
     A --> C[📰 OpenAI Blog]
     A --> D[🧠 Anthropic News]
-    
+
     B --> E[💾 Neon DB Database]
     C --> E
     D --> E
-    
+
     E --> F[📝 Process Transcripts]
     E --> G[📄 Process Markdown]
-    
+
     F --> H[🤖 Digest Agent]
     G --> H
-    
+
     H --> I[💾 Store Digests]
-    
+
     I --> J[🎯 Curator Agent]
-    
+
     J --> K[📊 Ranked Articles]
-    
+
     K --> L[✉️ Email Agent]
-    
+
     L --> M[📧 HTML Email Digest]
-    
+
     style A fill:#4ECDC4,stroke:#333,stroke-width:2px,color:#fff
     style H fill:#FF6B6B,stroke:#333,stroke-width:2px,color:#fff
     style J fill:#45B7D1,stroke:#333,stroke-width:2px,color:#fff
@@ -140,8 +137,6 @@ graph TD
    - HTML email with responsive design
    - Includes read-more links to original content
 
-
-
 ## 📧 Email Digest Format
 
 Your daily email will look like this:
@@ -151,17 +146,17 @@ Subject: Daily AI News Digest - January 26, 2026
 
 Hey Bhavya, here is your daily digest of AI news for January 26, 2026.
 
-Today's top articles cover breakthrough advances in multimodal AI, 
-new LLM architectures, and practical RAG implementations. You'll 
+Today's top articles cover breakthrough advances in multimodal AI,
+new LLM architectures, and practical RAG implementations. You'll
 find deep technical insights aligned with your expertise in AI systems.
 
 ---
 
 ## Revolutionary Approach to Vision-Language Models
 
-OpenAI's latest research introduces a novel architecture that 
-significantly improves image understanding in LLMs. The technique 
-shows promising results on standard benchmarks and could transform 
+OpenAI's latest research introduces a novel architecture that
+significantly improves image understanding in LLMs. The technique
+shows promising results on standard benchmarks and could transform
 multimodal applications.
 
 [Read more →](https://openai.com/...)
@@ -170,8 +165,8 @@ multimodal applications.
 
 ## Scaling RAG Systems to Production
 
-A comprehensive guide to deploying RAG pipelines at scale, covering 
-vector database optimization, chunking strategies, and real-world 
+A comprehensive guide to deploying RAG pipelines at scale, covering
+vector database optimization, chunking strategies, and real-world
 performance considerations.
 
 [Read more →](https://anthropic.com/...)
@@ -199,74 +194,81 @@ pip --version
 ### Installation
 
 **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/ai-news-aggregator.git
-   cd ai-news-aggregator
-   ```
+
+```bash
+git clone https://github.com/yourusername/ai-news-aggregator.git
+cd ai-news-aggregator
+```
 
 **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+
+```bash
+pip install -r requirements.txt
+```
 
 **Set up environment variables**
-   ```bash
-   # Create a .env file in the root directory
-   # Add your credentials:
-   
-   # Google Gemini API
-   GOOGLE_API_KEY=your_gemini_api_key_here
-   GEMINI_MODEL=gemini-2.5-flash
-   
-   # Email configuration (Gmail)
-   MY_EMAIL=your_email@gmail.com
-   APP_PASSWORD=your_gmail_app_password
-   
-   # Database configuration (Neon DB)
-   DATABASE_URL=postgresql://user:password@host.neon.tech:5432/dbname?sslmode=require
-   
-   # Optional: YouTube proxy (for transcript fetching)
-   WEBSHARE_USERNAME=your_proxy_username
-   WEBSHARE_PASSWORD=your_proxy_password
-   ```
-   
-   **Get your API keys:**
-   - Gemini API: [Google AI Studio](https://ai.google.dev)
-   - Gmail App Password: [Google Account Settings](https://myaccount.google.com/apppasswords)
-   - Neon DB Connection String: [Neon Console](https://console.neon.tech)
+
+```bash
+# Create a .env file in the root directory
+# Add your credentials:
+
+# Google Gemini API
+GOOGLE_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+
+# Email configuration (Gmail)
+MY_EMAIL=your_email@gmail.com
+APP_PASSWORD=your_gmail_app_password
+
+# Database configuration (Neon DB)
+DATABASE_URL=postgresql://user:password@host.neon.tech:5432/dbname?sslmode=require
+
+# Optional: YouTube proxy (for transcript fetching)
+WEBSHARE_USERNAME=your_proxy_username
+WEBSHARE_PASSWORD=your_proxy_password
+```
+
+**Get your API keys:**
+
+- Gemini API: [Google AI Studio](https://ai.google.dev)
+- Gmail App Password: [Google Account Settings](https://myaccount.google.com/apppasswords)
+- Neon DB Connection String: [Neon Console](https://console.neon.tech)
 
 **Set up the database**
-   ```bash
-   # Create tables
-   python app/database/create_tables.py
-   
-   # Verify connection
-   python app/database/check_connection.py
-   ```
+
+```bash
+# Create tables
+python app/database/create_tables.py
+
+# Verify connection
+python app/database/check_connection.py
+```
 
 **Configure your profile**
-   
-   Edit `app/profiles/user_profile.py` to customize your interests:
-   ```python
-   USER_PROFILE = {
-       "name": "Your Name",
-       "background": "Your background and expertise",
-       "interests": [
-           "Large Language Models",
-           "AI Safety",
-           # Add your interests...
-       ]
-   }
-   ```
+
+Edit `app/profiles/user_profile.py` to customize your interests:
+
+```python
+USER_PROFILE = {
+    "name": "Your Name",
+    "background": "Your background and expertise",
+    "interests": [
+        "Large Language Models",
+        "AI Safety",
+        # Add your interests...
+    ]
+}
+```
 
 **Run the pipeline**
-   ```bash
-   # Run daily pipeline (last 24 hours, top 10 articles)
-   python main.py
-   
-   # Or customize hours and article count
-   python main.py 48 15  # Last 48 hours, top 15 articles
-   ```
+
+```bash
+# Run daily pipeline (last 24 hours, top 10 articles)
+python main.py
+
+# Or customize hours and article count
+python main.py 48 15  # Last 48 hours, top 15 articles
+```
 
 ## 🤝 Contributing
 
@@ -275,23 +277,24 @@ Contributions are welcome to enhance the Global Digest!
 1. **🍴 Fork the repository**
 
 2. **🌟 Create your feature branch**
+
    ```bash
    git checkout -b feature/MultiLanguageSupport
    ```
 
 3. **💻 Commit your changes**
+
    ```bash
    git commit -m 'Add support for non-English sources'
    ```
 
 4. **🚀 Push to the branch**
+
    ```bash
    git push origin feature/MultiLanguageSupport
    ```
 
 5. **📬 Open a Pull Request**
-
-
 
 ## 🔒 Privacy & Security
 
@@ -315,8 +318,6 @@ Contributions are welcome to enhance the Global Digest!
 - 🎨 **Custom Templates** - User-defined email formats
 - ⚡ **Real-Time Updates** - Push notifications for breaking news
 
-
-
 ---
 
 <div align="center">
@@ -331,4 +332,4 @@ Contributions are welcome to enhance the Global Digest!
 
 ---
 
-*Last updated: January 2026*
+_Last updated: January 2026_
